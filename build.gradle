@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'com.zvv.fileUtils'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    compileOnly 'org.projectlombok:lombok:1.18.18'
+    annotationProcessor 'org.projectlombok:lombok:1.18.18'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+
+    manifest {
+        attributes "Main-Class": "file.utils.Main"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
